@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		EF395DF62D4AAC40003353D1 /* QuickMeal.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = EF395DF52D4AAC40003353D1 /* QuickMeal.sqlite */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		EF95E7FA2CFFD98300671DEB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -28,7 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EF395DF52D4AAC40003353D1 /* QuickMeal.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuickMeal.sqlite; sourceTree = "<group>"; };
 		EF95E7E92CFFD98000671DEB /* QuickMeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickMeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF95E7F92CFFD98300671DEB /* QuickMealTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickMealTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF95E8032CFFD98300671DEB /* QuickMealUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickMealUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +75,6 @@
 		EF95E7E02CFFD98000671DEB = {
 			isa = PBXGroup;
 			children = (
-				EF395DF52D4AAC40003353D1 /* QuickMeal.sqlite */,
 				EF95E7EB2CFFD98000671DEB /* QuickMeal */,
 				EF95E7FC2CFFD98300671DEB /* QuickMealTests */,
 				EF95E8062CFFD98300671DEB /* QuickMealUITests */,
@@ -218,7 +212,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF395DF62D4AAC40003353D1 /* QuickMeal.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

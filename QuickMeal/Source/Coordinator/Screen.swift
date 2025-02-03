@@ -5,7 +5,6 @@
 //  Created by Kamil Zachara on 04/12/2024.
 //
 
-
 enum Screen: Hashable, Equatable {
     case home
     case details
