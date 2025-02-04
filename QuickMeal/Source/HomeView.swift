@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  QuickMeal
 //
 //  Created by Kamil Zachara on 04/12/2024.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct HomeView: View {
     @EnvironmentObject var coordinator: Coordinator
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -19,7 +19,6 @@ struct ContentView: View {
     private var foodItems: FetchedResults<FoodItem>
     
     let columns = [
-        GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
@@ -36,28 +35,6 @@ struct ContentView: View {
     }
 }
 
-struct FoodItemView: View {
-    var name: String?
-    var imageName: String?
-    
-    var body: some View {
-        VStack {
-            if let imageName {
-                Image(systemName: imageName)
-                    .padding()
-            }
-            if let name {
-                Text(name)
-            }
-        }
-        .padding(20)
-        .background(Color.gray.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-    }
-}
-
-
 #Preview {
-    ContentView()
-//    FoodItemView(name: "Cauliflower", imageName: "fish.fill")
+    HomeView()
 }
