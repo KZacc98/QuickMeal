@@ -9,14 +9,13 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    @EnvironmentObject var coordinator: Coordinator
     @Environment(\.managedObjectContext) private var viewContext
-    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \FoodItem.name, ascending: true)],
         animation: .default
-    )
-    private var foodItems: FetchedResults<FoodItem>
+    ) var foodItems: FetchedResults<FoodItem>
+    
+    @StateObject var viewModel: HomeViewModel
     
     let columns = [
         GridItem(.flexible()),
@@ -27,14 +26,13 @@ struct HomeView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(foodItems) { item in
-                    FoodItemView(name: item.name, imageName: item.image)
+                    FoodItemView(name: item.name, imageName: item.image) {
+                        viewModel.manageFoodItems(item)
+                    }
                 }
             }
             .padding()
+            
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

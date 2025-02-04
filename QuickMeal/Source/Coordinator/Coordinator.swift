@@ -26,9 +26,9 @@ class Coordinator: ObservableObject {
     func build(screen: Screen) -> some View {
         switch screen {
         case .home:
-            HomeView()
+            HomeView(viewModel: HomeViewModel())
         case .details:
-            HomeView()
+            Text("Details")
                 .background(Color.red)
                 .ignoresSafeArea(.all)
         }

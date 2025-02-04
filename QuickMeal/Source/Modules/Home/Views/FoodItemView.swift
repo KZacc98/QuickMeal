@@ -12,6 +12,7 @@ struct FoodItemView: View {
     
     var name: String?
     var imageName: String?
+    var onTapAction: (() -> Void)?
     
     var body: some View {
         VStack {
@@ -36,6 +37,7 @@ struct FoodItemView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
+            onTapAction?()
             withAnimation(.easeIn(duration: 0.15)) {
                 isSelected.toggle()
             }
