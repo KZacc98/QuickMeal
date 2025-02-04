@@ -15,27 +15,26 @@ struct FoodItemView: View {
     var onTapAction: (() -> Void)?
     
     var body: some View {
-        VStack {
-            if let imageName {
-                Image(systemName: imageName)
-                    .resizable()
-                    .frame(width: 40, height: 40)
+        ZStack{
+            RoundedRectangle(cornerRadius: 20)
+                .fill(isSelected ? Color.blue.opacity(0.5) : Color.gray.opacity(0.1))
+            
+            VStack {
+                if let imageName {
+                    Image(systemName: imageName)
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                }
+                
+                if let name {
+                    Text(name)
+                        .font(.body)
+                        .lineLimit(2)
+                        .allowsTightening(true)
+                }
             }
-            if let name {
-                Text(name)
-                    .font(.body)
-                    .lineLimit(2)
-            }
+            .padding(20)
         }
-        .padding(20)
-        .background {
-            if isSelected {
-                Color.blue.opacity(0.5)
-            } else {
-                Color.gray.opacity(0.1)
-            }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture {
             onTapAction?()
             withAnimation(.easeIn(duration: 0.15)) {
@@ -43,6 +42,7 @@ struct FoodItemView: View {
             }
             print("\(name ?? "unknown") \(isSelected)")
         }
+        .scaleEffect(isSelected ? 0.95 : 1.0)
     }
 }
 
