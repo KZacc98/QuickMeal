@@ -9,8 +9,13 @@ import SwiftUI
 import CoreData
 
 class HomeViewModel: ObservableObject {
+    @Published var hideButton: Bool = true
     @Published var foodItems: [FoodItem] {
         didSet {
+            withAnimation(.easeInOut(duration: 0.25)) {
+                hideButton = foodItems.isEmpty
+            }
+            
             print("FoodItems: \n")
             foodItems.forEach { item in
                 dump(item.name)
@@ -28,6 +33,5 @@ class HomeViewModel: ObservableObject {
         } else {
             foodItems.append(foodItem)
         }
-        
     }
 }

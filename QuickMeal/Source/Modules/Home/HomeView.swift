@@ -10,12 +10,11 @@ import CoreData
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject var viewModel: HomeViewModel
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \FoodItem.name, ascending: true)],
         animation: .default
     ) var foodItems: FetchedResults<FoodItem>
-    
-    @StateObject var viewModel: HomeViewModel
     
     let columns = [
         GridItem(.flexible()),
@@ -32,7 +31,23 @@ struct HomeView: View {
                 }
             }
             .padding()
-            
+        }
+        .overlay {
+            if viewModel.hideButton == false {
+                GeometryReader { geometry in
+                    VStack{
+                        Spacer()
+                        MakeRecipeButton(requiredCount: 3, currentCount: viewModel.foodItems.count) {
+                            print("make recipe with:")
+                            viewModel.foodItems.forEach { item in
+                                print(item.name ?? "")
+                            }
+                        }
+                        .frame(height: geometry.size.height * 0.08)
+                        .padding()
+                    }
+                }
+            }
         }
     }
 }
