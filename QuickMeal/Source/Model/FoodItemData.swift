@@ -10,4 +10,5 @@ import Foundation
 struct FoodItemData: Codable {
     let name: String
     let image: String
+    let categoryId: String
 }

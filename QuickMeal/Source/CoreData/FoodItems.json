@@ -1,26 +1,52 @@
 [
     {
         "name": "Tomato",
-        "image": "fish.fill"
+        "image": "carrot.fill",
+        "categoryId": "1"
     },
     {
         "name": "Potato",
-        "image": "fish.fill"
+        "image": "carrot.fill",
+        "categoryId": "1"
     },
     {
         "name": "Cucumber",
-        "image": "fish.fill"
+        "image": "carrot.fill",
+        "categoryId": "1"
     },
     {
         "name": "Cauliflower",
-        "image": "fish.fill"
+        "image": "carrot.fill",
+        "categoryId": "1"
     },
     {
         "name": "Red Pepper",
-        "image": "fish.fill"
+        "image": "carrot.fill",
+        "categoryId": "1"
     },
     {
         "name": "Yellow Pepper",
-        "image": "fish.fill"
+        "image": "carrot.fill",
+        "categoryId": "1"
+    },
+    {
+        "name": "Fish",
+        "image": "fish.fill",
+        "categoryId": "2"
+    },
+    {
+        "name": "Beef",
+        "image": "hare.fill",
+        "categoryId": "2"
+    },
+    {
+        "name": "Pork",
+        "image": "hare.fill",
+        "categoryId": "2"
+    },
+    {
+        "name": "Chicken",
+        "image": "hare.fill",
+        "categoryId": "2"
     }
 ]

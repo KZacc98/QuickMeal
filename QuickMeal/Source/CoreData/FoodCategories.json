@@ -1,0 +1,12 @@
+[
+    {
+        "id": "1",
+        "name": "Vegetables",
+        "image": "carrot.fill",
+    },
+    {
+        "id": "2",
+        "name": "Meat",
+        "image": "hare.fill",
+    }
+]

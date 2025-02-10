@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  FoodItemsViewModel.swift
 //  QuickMeal
 //
 //  Created by Kamil Zachara on 04/02/2025.
@@ -8,8 +8,9 @@
 import SwiftUI
 import CoreData
 
-class HomeViewModel: ObservableObject {
+class FoodItemsViewModel: ObservableObject {
     @Published var hideButton: Bool = true
+    @Published var category: FoodCategory
     @Published var foodItems: [FoodItem] {
         didSet {
             withAnimation(.easeInOut(duration: 0.25)) {
@@ -23,7 +24,12 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    init(foodItems: [FoodItem] = []) {
+    var categoryId: String? {
+        category.id
+    }
+    
+    init(category: FoodCategory, foodItems: [FoodItem] = []) {
+        self.category = category
         self.foodItems = foodItems
     }
     
