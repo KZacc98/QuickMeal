@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FoodItemsPager: View {
-    @StateObject var viewModel: FoodItemsPagerVieweModel
+    @StateObject var viewModel: FoodItemsPagerViewModel
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \FoodCategory.id, ascending: true)],

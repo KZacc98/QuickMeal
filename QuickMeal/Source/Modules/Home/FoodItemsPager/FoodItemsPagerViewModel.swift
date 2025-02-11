@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class FoodItemsPagerVieweModel: ObservableObject {
+class FoodItemsPagerViewModel: ObservableObject {
     @Published var hideButton: Bool = true
     @Published var foodItems: [FoodItem] = [] {
         didSet {
