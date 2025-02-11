@@ -13,13 +13,16 @@ struct FoodItemsView: View {
     @StateObject var viewModel: FoodItemsViewModel
     @FetchRequest var foodItems: FetchedResults<FoodItem>
     
+    var onItemSelected: ((FoodItem) -> Void)?
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    init(viewModel: FoodItemsViewModel) {
+    init(viewModel: FoodItemsViewModel, onItemSelected: ((FoodItem) -> Void)?) {
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.onItemSelected = onItemSelected
         
         let fetchRequest: NSFetchRequest<FoodItem> = FoodItem.fetchRequest()
         
@@ -39,28 +42,11 @@ struct FoodItemsView: View {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(foodItems) { item in
                     FoodItemView(name: item.name, imageName: item.image) {
-                        viewModel.manageFoodItems(item)
+                        onItemSelected?(item)
                     }
                 }
             }
             .padding()
-        }
-        .overlay {
-            if viewModel.hideButton == false {
-                GeometryReader { geometry in
-                    VStack {
-                        Spacer()
-                        MakeRecipeButton(requiredCount: 3, currentCount: viewModel.foodItems.count) {
-                            print("make recipe with:")
-                            viewModel.foodItems.forEach { item in
-                                print(item.name ?? "")
-                            }
-                        }
-                        .frame(height: geometry.size.height * 0.08)
-                        .padding()
-                    }
-                }
-            }
         }
     }
 }

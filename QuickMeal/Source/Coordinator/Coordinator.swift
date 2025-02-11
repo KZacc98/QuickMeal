@@ -26,8 +26,7 @@ class Coordinator: ObservableObject {
     func build(screen: Screen) -> some View {
         switch screen {
         case .home:
-//            FoodItemsView(viewModel: FoodItemsViewModel())
-            FoodItemsPager()
+            FoodItemsPager(viewModel: FoodItemsPagerVieweModel())
         case .details:
             Text("Details")
                 .background(Color.red)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FoodItemsPager: View {
+    @StateObject var viewModel: FoodItemsPagerVieweModel
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \FoodCategory.id, ascending: true)],
         animation: .default
@@ -18,19 +20,35 @@ struct FoodItemsPager: View {
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(foodCategories) { category in
-                        FoodItemsView(viewModel: FoodItemsViewModel(category: category))
-                            .frame(width: geometry.size.width)
+                        FoodItemsView(viewModel: FoodItemsViewModel(category: category), onItemSelected: { item in
+                            viewModel.manageFoodItems(item)
+                        })
+                        .frame(width: geometry.size.width)
                     }
                 }
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.never)
-
+            .overlay {
+                if viewModel.hideButton == false {
+                    VStack {
+                        Spacer()
+                        MakeRecipeButton(requiredCount: 3, currentCount: viewModel.foodItems.count) {
+                            print("make recipe with:")
+                            viewModel.foodItems.forEach { item in
+                                print(item.name ?? "")
+                            }
+                        }
+                        .frame(height: geometry.size.height * 0.08)
+                        .padding()
+                    }
+                }
+            }
         }
     }
 }
-
-#Preview {
-    FoodItemsPager()
-}
+//
+//#Preview {
+//    FoodItemsPager()
+//}
