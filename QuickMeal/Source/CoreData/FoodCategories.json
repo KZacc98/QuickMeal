@@ -1,12 +1,27 @@
 [
     {
         "id": "1",
-        "name": "Vegetables",
-        "image": "carrot.fill",
+        "name": "Proteins",
+        "image": "hare.fill",
     },
     {
         "id": "2",
-        "name": "Meat",
-        "image": "hare.fill",
+        "name": "Fruits & Vegetables",
+        "image": "carrot.fill",
+    },
+    {
+        "id": "3",
+        "name": "Carbs",
+        "image": "laurel.trailing",
+    },
+    {
+        "id": "4",
+        "name": "Dairy & Alternatives",
+        "image": "waterbottle.fill",
+    },
+    {
+        "id": "5",
+        "name": "Pantry Staples",
+        "image": "leaf.fill",
     }
 ]

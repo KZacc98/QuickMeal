@@ -1,52 +1,176 @@
 [
     {
-        "name": "Tomato",
-        "image": "carrot.fill",
+        "name": "Chicken",
+        "image": "document.fill",
         "categoryId": "1"
-    },
-    {
-        "name": "Potato",
-        "image": "carrot.fill",
-        "categoryId": "1"
-    },
-    {
-        "name": "Cucumber",
-        "image": "carrot.fill",
-        "categoryId": "1"
-    },
-    {
-        "name": "Cauliflower",
-        "image": "carrot.fill",
-        "categoryId": "1"
-    },
-    {
-        "name": "Red Pepper",
-        "image": "carrot.fill",
-        "categoryId": "1"
-    },
-    {
-        "name": "Yellow Pepper",
-        "image": "carrot.fill",
-        "categoryId": "1"
-    },
-    {
-        "name": "Fish",
-        "image": "fish.fill",
-        "categoryId": "2"
     },
     {
         "name": "Beef",
-        "image": "hare.fill",
+        "image": "document.fill",
+        "categoryId": "1"
+    },
+    {
+        "name": "Salmon",
+        "image": "document.fill",
+        "categoryId": "1"
+    },
+    {
+        "name": "Tofu",
+        "image": "document.fill",
+        "categoryId": "1"
+    },
+    {
+        "name": "Lentils",
+        "image": "document.fill",
+        "categoryId": "1"
+    },
+    {
+        "name": "Shrimp",
+        "image": "document.fill",
+        "categoryId": "1"
+    },
+    {
+        "name": "Eggs",
+        "image": "document.fill",
+        "categoryId": "1"
+    },
+
+    {
+        "name": "Tomato",
+        "image": "document.fill",
         "categoryId": "2"
     },
     {
-        "name": "Pork",
-        "image": "hare.fill",
+        "name": "Spinach",
+        "image": "document.fill",
         "categoryId": "2"
     },
     {
-        "name": "Chicken",
-        "image": "hare.fill",
+        "name": "Apple",
+        "image": "document.fill",
         "categoryId": "2"
+    },
+    {
+        "name": "Banana",
+        "image": "document.fill",
+        "categoryId": "2"
+    },
+    {
+        "name": "Carrot",
+        "image": "document.fill",
+        "categoryId": "2"
+    },
+    {
+        "name": "Broccoli",
+        "image": "document.fill",
+        "categoryId": "2"
+    },
+    {
+        "name": "Grapes",
+        "image": "document.fill",
+        "categoryId": "2"
+    },
+
+    {
+        "name": "Rice",
+        "image": "document.fill",
+        "categoryId": "3"
+    },
+    {
+        "name": "Pasta",
+        "image": "document.fill",
+        "categoryId": "3"
+    },
+    {
+        "name": "Bread",
+        "image": "document.fill",
+        "categoryId": "3"
+    },
+    {
+        "name": "Quinoa",
+        "image": "document.fill",
+        "categoryId": "3"
+    },
+    {
+        "name": "Potato",
+        "image": "document.fill",
+        "categoryId": "3"
+    },
+    {
+        "name": "Oats",
+        "image": "document.fill",
+        "categoryId": "3"
+    },
+
+    {
+        "name": "Cow Milk",
+        "image": "document.fill",
+        "categoryId": "4"
+    },
+    {
+        "name": "Cheddar Cheese",
+        "image": "document.fill",
+        "categoryId": "4"
+    },
+    {
+        "name": "Yogurt",
+        "image": "document.fill",
+        "categoryId": "4"
+    },
+    {
+        "name": "Almond Milk",
+        "image": "document.fill",
+        "categoryId": "4"
+    },
+    {
+        "name": "Butter",
+        "image": "document.fill",
+        "categoryId": "4"
+    },
+    {
+        "name": "Vegan Cheese",
+        "image": "document.fill",
+        "categoryId": "4"
+    },
+
+    {
+        "name": "Olive Oil",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Salt",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Black Pepper",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Garlic",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Cumin",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Vegetable Broth",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Honey",
+        "image": "document.fill",
+        "categoryId": "5"
+    },
+    {
+        "name": "Flour",
+        "image": "document.fill",
+        "categoryId": "5"
     }
 ]
