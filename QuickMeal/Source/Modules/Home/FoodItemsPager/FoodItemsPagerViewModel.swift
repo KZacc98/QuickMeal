@@ -14,13 +14,10 @@ class FoodItemsPagerViewModel: ObservableObject {
             withAnimation(.easeInOut(duration: 0.25)) {
                 hideButton = foodItems.isEmpty
             }
-            
-            print("FoodItems: \n")
-            foodItems.forEach { item in
-                dump(item.name)
-            }
         }
     }
+    
+    let apiService: APIService = APIService(apiKey: "")
     
     func manageFoodItems(_ foodItem: FoodItem) {
         if foodItems.contains(foodItem) {
@@ -28,5 +25,24 @@ class FoodItemsPagerViewModel: ObservableObject {
         } else {
             foodItems.append(foodItem)
         }
+    }
+    
+    func makeRecipe() {
+        Task {
+            do {
+                let response = try await apiService.fetchGeminiResponse(prompt: makePrompt(foodItems: foodItems))
+                print("Gemini Response: \(response)")
+            } catch {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func makePrompt(foodItems: [FoodItem]) -> String {
+        let foodItemsList = foodItems.map { $0.name ?? "" }.joined(separator: ",")
+        
+        return """
+
+"""
     }
 }

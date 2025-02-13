@@ -35,10 +35,12 @@ struct FoodItemsPager: View {
                     VStack {
                         Spacer()
                         MakeRecipeButton(requiredCount: 3, currentCount: viewModel.foodItems.count) {
-                            print("make recipe with:")
-                            viewModel.foodItems.forEach { item in
-                                print(item.name ?? "")
-                            }
+//                            print("make recipe with:")
+//                            viewModel.foodItems.forEach { item in
+//                                guard let name = item.name else { return }
+//                                print(name)
+//                            }
+                            viewModel.makeRecipe()
                         }
                         .frame(height: geometry.size.height * 0.08)
                         .padding()

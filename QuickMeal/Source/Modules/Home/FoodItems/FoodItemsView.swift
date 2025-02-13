@@ -38,7 +38,7 @@ struct FoodItemsView: View {
     
     var body: some View {
         ScrollView {
-            Text(viewModel.category.name ?? "Dupa")
+            Text(viewModel.category.name ?? "Category Name")
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(foodItems) { item in
                     FoodItemView(name: item.name, imageName: item.image) {
