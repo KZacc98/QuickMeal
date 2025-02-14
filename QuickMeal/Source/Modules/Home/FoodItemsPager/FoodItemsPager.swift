@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FoodItemsPager: View {
     @StateObject var viewModel: FoodItemsPagerViewModel
+    @EnvironmentObject var coordinator: Coordinator
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \FoodCategory.id, ascending: true)],
@@ -35,12 +36,8 @@ struct FoodItemsPager: View {
                     VStack {
                         Spacer()
                         MakeRecipeButton(requiredCount: 3, currentCount: viewModel.foodItems.count) {
-//                            print("make recipe with:")
-//                            viewModel.foodItems.forEach { item in
-//                                guard let name = item.name else { return }
-//                                print(name)
-//                            }
-                            viewModel.makeRecipe()
+//                            viewModel.makeRecipe()
+                            coordinator.presentSheet(.test)
                         }
                         .frame(height: geometry.size.height * 0.08)
                         .padding()
@@ -50,7 +47,3 @@ struct FoodItemsPager: View {
         }
     }
 }
-//
-//#Preview {
-//    FoodItemsPager()
-//}

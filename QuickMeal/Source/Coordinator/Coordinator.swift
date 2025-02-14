@@ -9,6 +9,7 @@ import SwiftUI
 
 class Coordinator: ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
+    @Published var sheet: Sheet?
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -22,6 +23,14 @@ class Coordinator: ObservableObject {
         path.removeLast(path.count)
     }
     
+    func presentSheet(_ sheet: Sheet) {
+        self.sheet = sheet
+    }
+    
+    func dismissSheet() {
+        self.sheet = nil
+    }
+    
     @ViewBuilder
     func build(screen: Screen) -> some View {
         switch screen {
@@ -31,6 +40,13 @@ class Coordinator: ObservableObject {
             Text("Details")
                 .background(Color.red)
                 .ignoresSafeArea(.all)
+        }
+    }
+    
+    @ViewBuilder
+    func buildSheet(sheet: Sheet) -> some View {
+        switch sheet {
+        case .test: Text("Test")
         }
     }
 }
