@@ -8,39 +8,33 @@
 import SwiftUI
 import CoreData
 
+/**
+ A view that displays a grid of `FoodItemView` for a given food category.
+
+ - Parameters:
+    - viewModel: A `StateObject` containing the logic for fetching and managing `FoodItem` objects.
+    - onItemSelected: A closure triggered when a `FoodItem` is selected.
+
+ - SeeAlso: `FoodItemsViewModel`
+ */
+
 struct FoodItemsView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @StateObject var viewModel: FoodItemsViewModel
-    @FetchRequest var foodItems: FetchedResults<FoodItem>
-    
     var onItemSelected: ((FoodItem) -> Void)?
-    
+
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
-    init(viewModel: FoodItemsViewModel, onItemSelected: ((FoodItem) -> Void)?) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-        self.onItemSelected = onItemSelected
-        
-        let fetchRequest: NSFetchRequest<FoodItem> = FoodItem.fetchRequest()
-        
-        if let categoryId = viewModel.categoryId {
-            let predicate = NSPredicate(format: "categoryId == %@", categoryId)
-            fetchRequest.predicate = predicate
-        }
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \FoodItem.name, ascending: true)]
-        
-        self._foodItems = FetchRequest(fetchRequest: fetchRequest, animation: .default)
-    }
-    
+
     var body: some View {
         ScrollView {
             Text(viewModel.category.name ?? "Category Name")
+                .font(.title)
+                .padding(.top)
+            
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(foodItems) { item in
+                ForEach(viewModel.foodItems) { item in
                     FoodItemView(name: item.name, imageName: item.image) {
                         onItemSelected?(item)
                     }

@@ -19,6 +19,7 @@ import SwiftUI
 
  - SeeAlso: `CategoriesBar`
  */
+
 struct CategoryButton: View {
     var category: FoodCategory
     var isSelected: Bool

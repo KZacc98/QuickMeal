@@ -17,6 +17,7 @@ import SwiftUI
 
  - SeeAlso: `FoodItemsPager`
  */
+
 import SwiftUI
 
 struct CategoriesBar: View {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FoodItemsPager: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @StateObject var viewModel: FoodItemsPagerViewModel
     @EnvironmentObject var coordinator: Coordinator
     @State var selectedCategoryId: String? = nil
@@ -30,7 +31,9 @@ struct FoodItemsPager: View {
                     LazyHStack {
                         ForEach(foodCategories) { category in
                             FoodItemsView(
-                                viewModel: FoodItemsViewModel(category: category),
+                                viewModel: FoodItemsViewModel(
+                                    category: category,
+                                    context: viewContext),
                                 onItemSelected: { item in
                                     triggerHapticFeedback(style: .medium)
                                     viewModel.manageFoodItems(item)
