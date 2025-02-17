@@ -1,8 +1,18 @@
+//
+//  FoodItemsPagerView.swift
+//  QuickMeal
+//
+//  Created by Kamil Zachara on 17/02/2025.
+//
+
+import SwiftUI
+import CoreData
 
 struct FoodItemsPagerView: View {
+    @Binding var selectedCategoryId: String?
+    
     let geometry: GeometryProxy
     let foodCategories: FetchedResults<FoodCategory>
-    @Binding var selectedCategoryId: String?
     let onItemSelected: (FoodItem) -> Void
     
     private let context: NSManagedObjectContext
@@ -10,13 +20,13 @@ struct FoodItemsPagerView: View {
     init(geometry: GeometryProxy,
          foodCategories: FetchedResults<FoodCategory>,
          selectedCategoryId: Binding<String?>,
-         onItemSelected: @escaping (FoodItem) -> Void,
-         context: NSManagedObjectContext) {
+         context: NSManagedObjectContext,
+         onItemSelected: @escaping (FoodItem) -> Void) {
         self.geometry = geometry
         self.foodCategories = foodCategories
         self._selectedCategoryId = selectedCategoryId
-        self.onItemSelected = onItemSelected
         self.context = context
+        self.onItemSelected = onItemSelected
     }
     
     var body: some View {

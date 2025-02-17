@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct FoodItemsPager: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -27,27 +28,14 @@ struct FoodItemsPager: View {
                     selectedCategoryId: $selectedCategoryId
                 )
                 
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(foodCategories) { category in
-                            FoodItemsView(
-                                viewModel: FoodItemsViewModel(
-                                    category: category,
-                                    context: viewContext),
-                                onItemSelected: { item in
-                                    triggerHapticFeedback(style: .medium)
-                                    viewModel.manageFoodItems(item)
-                                }
-                            )
-                            .frame(width: geometry.size.width)
-                            .id(category.id)
-                        }
+                FoodItemsPagerView(
+                    geometry: geometry,
+                    foodCategories: foodCategories,
+                    selectedCategoryId: $selectedCategoryId,
+                    context: viewContext) { item in
+                        triggerHapticFeedback(style: .medium)
+                        viewModel.manageFoodItems(item)
                     }
-                    .scrollTargetLayout()
-                }
-                .scrollPosition(id: $selectedCategoryId)
-                .scrollTargetBehavior(.viewAligned)
-                .scrollIndicators(.never)
                 .overlay {
                     if viewModel.hideButton == false {
                         VStack {
@@ -65,9 +53,6 @@ struct FoodItemsPager: View {
                 }
             }
         }
-        .onChange(of: selectedCategoryId) { _, newValue in
-            triggerHapticFeedback()
-        }
         .onAppear {
             if let firstCategoryId = foodCategories.first?.id {
                 selectedCategoryId = firstCategoryId
@@ -80,3 +65,4 @@ struct FoodItemsPager: View {
         generator.impactOccurred()
     }
 }
+
