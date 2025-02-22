@@ -14,6 +14,7 @@ import CoreData
  - Parameters:
     - viewModel: A `StateObject` containing the logic for fetching and managing `FoodItem` objects.
     - onItemSelected: A closure triggered when a `FoodItem` is selected.
+    - isSelected: A closure responsible for checking wether a `FoodItem` is selected. NOT IDEAL but good enough to move on. TODO: rethink the "selection" logic, make it more "data driven"
 
  - SeeAlso: `FoodItemsViewModel`
  */
@@ -21,6 +22,7 @@ import CoreData
 struct FoodItemsView: View {
     @StateObject var viewModel: FoodItemsViewModel
     var onItemSelected: ((FoodItem) -> Void)?
+    var isSelected: ((FoodItem) -> Bool)?
 
     let columns = [
         GridItem(.flexible()),
@@ -35,9 +37,14 @@ struct FoodItemsView: View {
             
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(viewModel.foodItems) { item in
-                    FoodItemView(name: item.name, imageName: item.image) {
-                        onItemSelected?(item)
-                    }
+                    FoodItemView(
+                        isSelected: isSelected?(item) ?? false,
+                        name: item.name,
+                        imageName: item.image,
+                        onTapAction: {
+                            onItemSelected?(item)
+                        }
+                    )
                 }
             }
             .padding()

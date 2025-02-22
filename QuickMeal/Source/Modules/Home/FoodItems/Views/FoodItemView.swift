@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FoodItemView: View {
-    @State var isSelected: Bool = false
+    @State var isSelected: Bool
     
     var name: String?
     var imageName: String?
@@ -49,9 +49,9 @@ struct FoodItemView: View {
 #Preview {
     GeometryReader { geometry in
         HStack(spacing: 0) {
-            FoodItemView(name: "Cauliflower", imageName: "fish.fill")
+            FoodItemView(isSelected: true, name: "Cauliflower", imageName: "fish.fill")
                 .frame(width: geometry.size.width * 0.50)
-            FoodItemView(name: "red bell pepper", imageName: "microbe.fill")
+            FoodItemView(isSelected: true, name: "red bell pepper", imageName: "microbe.fill")
                 .frame(width: geometry.size.width * 0.50)
         }
     }

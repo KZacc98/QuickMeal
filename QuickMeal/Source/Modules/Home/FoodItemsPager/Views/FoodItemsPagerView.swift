@@ -14,6 +14,7 @@ struct FoodItemsPagerView: View {
     let geometry: GeometryProxy
     let foodCategories: FetchedResults<FoodCategory>
     let onItemSelected: (FoodItem) -> Void
+    let isItemSelected: (FoodItem) -> Bool
     
     private let context: NSManagedObjectContext
     
@@ -21,12 +22,14 @@ struct FoodItemsPagerView: View {
          foodCategories: FetchedResults<FoodCategory>,
          selectedCategoryId: Binding<String?>,
          context: NSManagedObjectContext,
-         onItemSelected: @escaping (FoodItem) -> Void) {
+         onItemSelected: @escaping (FoodItem) -> Void,
+         isItemSelected: @escaping (FoodItem) -> Bool) {
         self.geometry = geometry
         self.foodCategories = foodCategories
         self._selectedCategoryId = selectedCategoryId
         self.context = context
         self.onItemSelected = onItemSelected
+        self.isItemSelected = isItemSelected
     }
     
     var body: some View {
@@ -38,7 +41,8 @@ struct FoodItemsPagerView: View {
                             category: category,
                             context: context
                         ),
-                        onItemSelected: onItemSelected
+                        onItemSelected: onItemSelected,
+                        isSelected: isItemSelected
                     )
                     .frame(width: geometry.size.width)
                     .id(category.id)

@@ -32,10 +32,15 @@ struct FoodItemsPager: View {
                     geometry: geometry,
                     foodCategories: foodCategories,
                     selectedCategoryId: $selectedCategoryId,
-                    context: viewContext) { item in
+                    context: viewContext,
+                    onItemSelected: { item in
                         triggerHapticFeedback(style: .medium)
                         viewModel.manageFoodItems(item)
+                    },
+                    isItemSelected: { foodItem in
+                        return viewModel.foodItems.contains(foodItem)
                     }
+                )
                 .overlay {
                     if viewModel.hideButton == false {
                         VStack {
