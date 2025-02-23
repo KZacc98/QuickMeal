@@ -7,14 +7,25 @@
 
 enum Screen: Hashable, Equatable {
     case home
-    case details
+    case recipe(recipeViewModel: RecipeViewModel)
+    
+    static func == (lhs: Screen, rhs: Screen) -> Bool {
+        switch (lhs, rhs) {
+        case (.home, .home):
+            return true
+        case (.recipe(let lhsRecipeVM), .recipe(let rhsRecipeVM)):
+            return lhsRecipeVM.id == rhsRecipeVM.id
+        default:
+            return false
+        }
+    }
     
     func hash(into hasher: inout Hasher) {
         switch self {
         case .home:
             hasher.combine("home")
-        case .details:
-            hasher.combine("details")
+        case .recipe:
+            hasher.combine("recipe")
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StepResponse: Codable {
+struct StepResponse: Codable, Hashable {
     let stepNumber: Int
     let stepDescription: String
 }

@@ -36,10 +36,8 @@ class Coordinator: ObservableObject {
         switch screen {
         case .home:
             FoodItemsPager(viewModel: FoodItemsPagerViewModel())
-        case .details:
-            Text("Details")
-                .background(Color.red)
-                .ignoresSafeArea(.all)
+        case .recipe(recipeViewModel: let viewModel):
+            RecipeView(viewModel: viewModel)
         }
     }
     

@@ -49,7 +49,9 @@ struct FoodItemsPager: View {
                                 requiredCount: 3,
                                 currentCount: viewModel.foodItems.count
                             ) {
-                                coordinator.presentSheet(.test)
+                                let response = viewModel.mockRecipe()
+                                
+                                coordinator.push(.recipe(recipeViewModel: RecipeViewModel(recipe: response)))
                             }
                             .frame(height: geometry.size.height * 0.08)
                             .padding()

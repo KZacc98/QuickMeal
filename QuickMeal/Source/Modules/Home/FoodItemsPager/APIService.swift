@@ -14,7 +14,7 @@ class APIService {
         self.apiKey = apiKey
     }
     
-    func fetchGeminiResponse(prompt: String) async throws -> String {
+    func fetchGeminiResponse(prompt: String) async throws -> RecipeResponse? {
         let urlString = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\(apiKey)"
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
@@ -59,9 +59,9 @@ class APIService {
             print(jsonResponse)
             print("\n")
             print("\n")
-            dump(parseJSONResponse(from: text))
+//            dump(parseJSONResponse(from: text))
             
-            return text
+            return parseJSONResponse(from: text)
         } else {
             throw NSError(domain: "GeminiAPI", code: -3, userInfo: [NSLocalizedDescriptionKey: "Failed to parse API response"])
         }
