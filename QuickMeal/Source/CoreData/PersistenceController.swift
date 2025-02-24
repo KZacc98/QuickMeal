@@ -26,9 +26,9 @@ struct PersistenceController {
         }
         
         // Load data once on first launch
-        if isFirstLaunch() {
+//        if isFirstLaunch() {
             loadJSONData(forceReload: true)
-        }
+//        }
     }
     
     // MARK: - Core Data Operations
@@ -57,11 +57,22 @@ struct PersistenceController {
         // Delete all FoodCategory entities
         let foodCategoryFetchRequest: NSFetchRequest<NSFetchRequestResult> = FoodCategory.fetchRequest()
         let foodCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: foodCategoryFetchRequest)
-
+        
+        // Delete all saved recipe steps
+        let recipeStepsFetchRequest: NSFetchRequest<NSFetchRequestResult> = RecipeStep.fetchRequest()
+        let recipeStepsDeleteRequest = NSBatchDeleteRequest(fetchRequest: recipeStepsFetchRequest)
+        
+        // Delete all saved recipes
+        let recipesFetchRequest: NSFetchRequest<NSFetchRequestResult> = Recipe.fetchRequest()
+        let recipesDeleteRequest = NSBatchDeleteRequest(fetchRequest: recipesFetchRequest)
+        
+        
         do {
             // Execute delete requests
             try context.execute(foodItemDeleteRequest)
             try context.execute(foodCategoryDeleteRequest)
+            try context.execute(recipeStepsDeleteRequest)
+            try context.execute(recipesDeleteRequest)
 
             // Save the context to persist changes
             try context.save()

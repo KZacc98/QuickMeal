@@ -13,6 +13,10 @@ struct RecipeResponse: Codable {
 }
 
 extension RecipeResponse {
+    var uniqueKey: String {
+        "\(name)-\(description)-\(steps.count)"
+    }
+    
     static func mockRecipe() -> RecipeResponse {
         return RecipeResponse(
             name: "Garlic Butter Chicken with Roasted Broccoli and Carrot Rice",
