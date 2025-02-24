@@ -45,13 +45,17 @@ struct FoodItemsPager: View {
                     if viewModel.hideButton == false {
                         VStack {
                             Spacer()
+                            
                             MakeRecipeButton(
                                 requiredCount: 3,
                                 currentCount: viewModel.foodItems.count
                             ) {
-                                let response = viewModel.mockRecipe()
+                                let response = RecipeResponse.mockRecipe()
                                 
-                                coordinator.push(.recipe(recipeViewModel: RecipeViewModel(recipe: response)))
+                                coordinator.push(.recipe(
+                                    recipeViewModel: RecipeViewModel(
+                                        recipe: response)
+                                ))
                             }
                             .frame(height: geometry.size.height * 0.08)
                             .padding()

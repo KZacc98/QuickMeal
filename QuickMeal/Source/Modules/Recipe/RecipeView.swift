@@ -13,25 +13,31 @@ struct RecipeView: View {
     var body: some View {
         VStack {
             Text(viewModel.recipe.name)
+                .font(.headline)
+                .padding()
+            
             Text(viewModel.recipe.description)
+                .font(.subheadline)
+                .multilineTextAlignment(.leading)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true)
+                .padding()
+            
             Text("Steps")
-            ForEach(viewModel.recipe.steps, id: \.self) { step in
-                Text(step.stepDescription)
+            
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(viewModel.recipe.steps, id: \.self) { step in
+                        RecipeStepView(step: step)
+                            .padding([.trailing, .leading])
+                    }
+                }
             }
         }
     }
 }
 
-class RecipeViewModel: ObservableObject {
-    let recipe: RecipeResponse
-    
-    let id = UUID()
-    
-    init(recipe: RecipeResponse) {
-        self.recipe = recipe
-    }
+#Preview {
+    RecipeView(viewModel: RecipeViewModel(recipe: RecipeResponse.mockRecipe()))
 }
-//
-//#Preview {
-//    RecipeView()
-//}

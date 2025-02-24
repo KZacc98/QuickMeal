@@ -11,3 +11,9 @@ struct StepResponse: Codable, Hashable {
     let stepNumber: Int
     let stepDescription: String
 }
+
+extension StepResponse {
+    static func mock() -> StepResponse {
+        return StepResponse(stepNumber: 1, stepDescription: "Preheat oven to 400°F (200°C).")
+    }
+}
