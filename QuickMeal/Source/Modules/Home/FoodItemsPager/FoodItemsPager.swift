@@ -48,15 +48,8 @@ struct FoodItemsPager: View {
                             
                             MakeRecipeButton(
                                 requiredCount: 3,
-                                currentCount: viewModel.foodItems.count
-                            ) {
-                                let response = RecipeResponse.mockRecipe()
-                                
-                                coordinator.push(.recipe(
-                                    recipeViewModel: RecipeViewModel(
-                                        recipe: response)
-                                ))
-                            }
+                                currentCount: viewModel.foodItems.count,
+                                action: { makeRecipe() })
                             .frame(height: geometry.size.height * 0.08)
                             .padding()
                         }
@@ -67,6 +60,24 @@ struct FoodItemsPager: View {
         .onAppear {
             if let firstCategoryId = foodCategories.first?.id {
                 selectedCategoryId = firstCategoryId
+            }
+        }
+    }
+    
+    private func makeRecipe() {
+        viewModel.makeRecipe { result in
+            switch result {
+            case .success(let success):
+                guard let response = success else { return }
+                
+                Task { @MainActor in
+                    coordinator.push(.recipe(
+                        recipeViewModel: RecipeViewModel(
+                            recipe: response)
+                    ))
+                }
+            case .failure(let failure):
+                dump(failure)
             }
         }
     }

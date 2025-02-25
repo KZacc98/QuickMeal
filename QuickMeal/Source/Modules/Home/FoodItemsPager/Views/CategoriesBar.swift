@@ -41,5 +41,6 @@ struct CategoriesBar: View {
             .frame(height: geometry.size.height * 0.1)
             .padding(.horizontal)
         }
+        .scrollIndicators(.never)
     }
 }

@@ -25,19 +25,30 @@ struct CategoryButton: View {
     var isSelected: Bool
     var onSelect: () -> Void
     
+    private let buttonSize: CGFloat = 60
+    private let cornerRadius: CGFloat = 12
+    
     var body: some View {
-        if let image = category.image {
-            Image(systemName: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .background {
-                    if isSelected {
-                        Color.red
-                    }
-                }
-                .onTapGesture {
-                    onSelect()
-                }
+        ZStack {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(isSelected ? Color.blue : Color.clear)
+                .frame(width: buttonSize, height: buttonSize)
+                .animation(.easeInOut(duration: 0.25), value: isSelected)
+            
+            if let image = category.image {
+                Image(systemName: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: buttonSize * 0.6, height: buttonSize * 0.6)
+                    .foregroundColor(isSelected ? .white : .primary)
+            }
+        }
+        .scaleEffect(isSelected ? 1.0 : 0.95)
+        .animation(.easeInOut(duration: 0.25), value: isSelected)
+        .onTapGesture {
+            withAnimation {
+                onSelect()
+            }
         }
     }
 }

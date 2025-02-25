@@ -26,9 +26,9 @@ struct PersistenceController {
         }
         
         // Load data once on first launch
-//        if isFirstLaunch() {
+        if isFirstLaunch() {
             loadJSONData(forceReload: true)
-//        }
+        }
     }
     
     // MARK: - Core Data Operations
