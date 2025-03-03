@@ -7,6 +7,11 @@
 
 import Foundation
 
+/**
+Represents a single step in a recipe
+
+- Note: Used in both API communication and UI presentation
+*/
 struct StepResponse: Codable, Hashable {
     let stepNumber: Int
     let stepDescription: String

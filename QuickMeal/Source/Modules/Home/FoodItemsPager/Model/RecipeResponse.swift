@@ -6,6 +6,12 @@
 //
 import Foundation
 
+/**
+Main recipe model containing all recipe information
+
+- Important: This is the primary domain model for recipe data
+- Note: Used in both API communication and UI presentation
+*/
 struct RecipeResponse: Codable {
     let name: String
     let description: String
