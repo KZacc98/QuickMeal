@@ -65,21 +65,26 @@ struct FoodItemsPager: View {
     }
     
     private func makeRecipe() {
-        viewModel.makeRecipe { result in
-            switch result {
-            case .success(let success):
-                guard let response = success else { return }
-                
-                Task { @MainActor in
-                    coordinator.push(.recipe(
-                        recipeViewModel: RecipeViewModel(
-                            recipe: response)
-                    ))
-                }
-            case .failure(let failure):
-                dump(failure)
-            }
-        }
+        coordinator.push(.recipe(
+            recipeViewModel: RecipeViewModel(
+                recipe: RecipeResponse.mockRecipe())
+        ))
+        
+//        viewModel.makeRecipe { result in
+//            switch result {
+//            case .success(let success):
+//                guard let response = success else { return }
+//                
+//                Task { @MainActor in
+//                    coordinator.push(.recipe(
+//                        recipeViewModel: RecipeViewModel(
+//                            recipe: response)
+//                    ))
+//                }
+//            case .failure(let failure):
+//                dump(failure)
+//            }
+//        }
     }
     
     private func triggerHapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .soft) {

@@ -14,6 +14,7 @@ struct RecipeStepView: View {
         HStack {
             ZStack{
                 Circle()
+                    .foregroundStyle(Color.blue)
                     .frame(width: 32, height: 32)
                     .overlay {
                         Text(step.stepNumber.description)

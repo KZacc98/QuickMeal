@@ -16,22 +16,22 @@ struct RecipeView: View {
     let viewModel: RecipeViewModel
     
     var body: some View {
-        VStack {
-            Text(viewModel.recipe.name)
-                .font(.headline)
-                .padding()
-            
-            Text(viewModel.recipe.description)
-                .font(.subheadline)
-                .multilineTextAlignment(.leading)
-                .fixedSize(
-                    horizontal: false,
-                    vertical: true)
-                .padding()
-            
-            Text("Steps")
-            
-            ScrollView {
+        ScrollView {
+            VStack {
+                Text(viewModel.recipe.name)
+                    .font(.headline)
+                    .padding()
+                
+                Text(viewModel.recipe.description)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true)
+                    .padding()
+                
+                Text("Steps")
+                
                 VStack(alignment: .leading) {
                     ForEach(viewModel.recipe.steps, id: \.self) { step in
                         RecipeStepView(step: step)
