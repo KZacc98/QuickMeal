@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct SavedRecipesListView: View {
+    @EnvironmentObject var coordinator: Coordinator
+    
     @FetchRequest(
         entity: Recipe.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Recipe.createdAt, ascending: true)]
@@ -16,18 +18,17 @@ struct SavedRecipesListView: View {
     
     var body: some View {
         ScrollView {
-            VStack{
+            LazyVStack(spacing: 10){
                 if recipes.isEmpty {
                     Text("No saved recipes")
                 } else {
                     ForEach(recipes) { recipe in
-                        VStack {
-                            Text(recipe.name ?? "recipe name")
-                            Text(recipe.createdAt?.description ?? "recipe createdAt")
-                            Text(recipe.steps?.count.description ?? "recipe step count")
+                        SavedRecipeCard(recipe: recipe) {
+                            let viewModel = RecipeViewModel(recipe: RecipeResponse(recipe: recipe))
+                            
+                            coordinator.push(.recipe(recipeViewModel: viewModel))
                         }
-                        .padding()
-                        .background(content: { Color.blue })
+                        .padding(.horizontal)
                     }
                 }
             }

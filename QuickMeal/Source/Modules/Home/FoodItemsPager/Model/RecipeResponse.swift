@@ -7,15 +7,25 @@
 import Foundation
 
 /**
-Main recipe model containing all recipe information
-
-- Important: This is the primary domain model for recipe data
-- Note: Used in both API communication and UI presentation
-*/
+ Main recipe model containing all recipe information
+ 
+ - Important: This is the primary domain model for recipe data
+ - Note: Used in both API communication and UI presentation
+ */
 struct RecipeResponse: Codable {
     let name: String
     let description: String
     let steps: [StepResponse]
+    
+    init(name: String, description: String, steps: [StepResponse]) {
+        self.name = name
+        self.description = description
+        self.steps = steps
+    }
+    
+    init(recipe: Recipe) {
+        self = recipe.toRecipeResponse()
+    }
 }
 
 extension RecipeResponse {
