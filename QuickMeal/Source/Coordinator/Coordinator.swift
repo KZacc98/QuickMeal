@@ -45,7 +45,7 @@ class Coordinator: ObservableObject {
     @ViewBuilder
     func buildSheet(sheet: Sheet) -> some View {
         switch sheet {
-        case .test: SavedRecipesListView()
+        case .test: Text("test")
         }
     }
 }

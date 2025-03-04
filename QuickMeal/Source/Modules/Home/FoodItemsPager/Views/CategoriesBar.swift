@@ -28,9 +28,18 @@ struct CategoriesBar: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 16) {
+                
+                CategoryButton(
+                    categoryImage: "star.fill",
+                    isSelected: selectedCategoryId == "0",
+                    onSelect: {
+                        selectedCategoryId = "0"
+                    }
+                )
+                
                 ForEach(foodCategories) { category in
                     CategoryButton(
-                        category: category,
+                        categoryImage: category.image,
                         isSelected: selectedCategoryId == category.id,
                         onSelect: {
                             selectedCategoryId = category.id

@@ -17,14 +17,18 @@ struct SavedRecipesListView: View {
     var body: some View {
         ScrollView {
             VStack{
-                ForEach(recipes) { recipe in
-                    VStack {
-                        Text(recipe.name ?? "recipe name")
-                        Text(recipe.createdAt?.description ?? "recipe createdAt")
-                        Text(recipe.steps?.count.description ?? "recipe step count")
+                if recipes.isEmpty {
+                    Text("No saved recipes")
+                } else {
+                    ForEach(recipes) { recipe in
+                        VStack {
+                            Text(recipe.name ?? "recipe name")
+                            Text(recipe.createdAt?.description ?? "recipe createdAt")
+                            Text(recipe.steps?.count.description ?? "recipe step count")
+                        }
+                        .padding()
+                        .background(content: { Color.blue })
                     }
-                    .padding()
-                    .background(content: { Color.blue })
                 }
             }
         }

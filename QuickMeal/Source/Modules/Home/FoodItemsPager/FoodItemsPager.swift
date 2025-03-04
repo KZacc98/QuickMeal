@@ -15,8 +15,8 @@ struct FoodItemsPager: View {
     @State var selectedCategoryId: String? = nil
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \FoodCategory.id, ascending: true)],
-        animation: .default
+        entity: FoodCategory.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FoodCategory.id, ascending: true)]
     ) var foodCategories: FetchedResults<FoodCategory>
     
     var body: some View {

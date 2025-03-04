@@ -35,6 +35,10 @@ struct FoodItemsPagerView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack {
+                SavedRecipesListView()
+                    .frame(width: geometry.size.width)
+                    .id("0")
+                
                 ForEach(foodCategories) { category in
                     FoodItemsView(
                         viewModel: FoodItemsViewModel(

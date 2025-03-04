@@ -34,7 +34,7 @@ class FoodItemsPagerViewModel: ObservableObject {
                 
                 completion(.success(response))
             } catch {
-                completion(.failure(ResponseError.error))
+                completion(.failure(error))
             }
         }
     }

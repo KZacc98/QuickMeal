@@ -11,7 +11,7 @@ import SwiftUI
  A button representing a single category in the `CategoriesBar`.
 
  - Parameters:
-    - category: The `FoodCategory` model representing the category to be displayed.
+    - categoryImage: SFSymbol name string.
     - isSelected: A Boolean value indicating whether this category is currently selected.
     - onSelect: A closure to be executed when the category is tapped. This typically updates the selected category in the parent view.
 
@@ -21,7 +21,7 @@ import SwiftUI
  */
 
 struct CategoryButton: View {
-    var category: FoodCategory
+    var categoryImage: String?
     var isSelected: Bool
     var onSelect: () -> Void
     
@@ -35,7 +35,7 @@ struct CategoryButton: View {
                 .frame(width: buttonSize, height: buttonSize)
                 .animation(.easeInOut(duration: 0.25), value: isSelected)
             
-            if let image = category.image {
+            if let image = categoryImage {
                 Image(systemName: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

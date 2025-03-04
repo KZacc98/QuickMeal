@@ -12,4 +12,5 @@ enum APIError: Error {
     case invalidResponse(Int)
     case decodingFailed
     case invalidContent
+    case unknownError
 }
