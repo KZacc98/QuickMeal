@@ -33,7 +33,7 @@ struct RecipeView: View {
                 Text("Steps")
                 
                 VStack(alignment: .leading) {
-                    ForEach(viewModel.recipe.steps, id: \.self) { step in
+                    ForEach(viewModel.recipe.steps.sorted(by: { $0.stepNumber < $1.stepNumber }), id: \.self) { step in
                         RecipeStepView(step: step)
                             .padding([.trailing, .leading])
                     }

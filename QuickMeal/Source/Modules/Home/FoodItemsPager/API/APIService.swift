@@ -10,7 +10,7 @@ import Foundation
 ///APIService handles communication with the Gemini API and response parsing
 class APIService {
     private let apiKey: String
-    private let baseURLString = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    private let baseURLString = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
     
     init(apiKey: String) {
         self.apiKey = apiKey
