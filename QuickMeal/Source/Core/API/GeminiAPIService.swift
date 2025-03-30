@@ -1,5 +1,5 @@
 //
-//  APIService.swift
+//  GeminiAPIService.swift
 //  QuickMeal
 //
 //  Created by Kamil Zachara on 13/02/2025.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-///APIService handles communication with the Gemini API and response parsing
-class APIService {
+///GeminiAPIService handles communication with the Gemini API and response parsing
+class GeminiAPIService {
     private let apiKey: String
     private let baseURLString = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
     

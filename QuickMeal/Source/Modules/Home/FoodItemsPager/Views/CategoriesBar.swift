@@ -22,7 +22,7 @@ import SwiftUI
 
 struct CategoriesBar: View {
     var geometry: GeometryProxy
-    var foodCategories: FetchedResults<FoodCategory>
+    var foodCategories: [FoodCategory]
     @Binding var selectedCategoryId: String?
     
     var body: some View {

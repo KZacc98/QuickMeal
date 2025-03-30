@@ -1,23 +1,29 @@
 //
-//  RecipeViewModel.swift
+//  CDRecipeRepository.swift
 //  QuickMeal
 //
-//  Created by Kamil Zachara on 24/02/2025.
+//  Created by Kamil Zachara on 30/03/2025.
 //
 
-import Foundation
 import CoreData
 
-class RecipeViewModel: ObservableObject {
-    let recipe: RecipeResponse
+final class CDRecipeRepository {
+    private let context: NSManagedObjectContext
     
-    let id = UUID()
-    
-    init(recipe: RecipeResponse) {
-        self.recipe = recipe
+    init(context: NSManagedObjectContext) {
+        self.context = context
     }
     
-    func saveRecipe(recipe: RecipeResponse, context: NSManagedObjectContext) {
+    func fetchRecipes(
+        sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(keyPath: \Recipe.createdAt, ascending: true)]
+    ) -> [Recipe] {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        request.sortDescriptors = sortDescriptors
+        
+        return (try? context.fetch(request)) ?? []
+    }
+    
+    func saveRecipe(recipe: RecipeResponse) {
         let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "name == %@ AND shortInfo == %@ AND %d == steps.@count",
@@ -52,7 +58,7 @@ class RecipeViewModel: ObservableObject {
         }
     }
     
-    func deleteRecipe(recipe: RecipeResponse, context: NSManagedObjectContext) {
+    func deleteRecipe(recipe: RecipeResponse) {
         let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "name == %@ AND shortInfo == %@ AND %d == steps.@count",

@@ -8,31 +8,24 @@
 import SwiftUI
 import CoreData
 
-struct FoodItemsPager: View {
-    @Environment(\.managedObjectContext) private var viewContext
+struct FoodItemsPager: View, Haptic {
     @StateObject var viewModel: FoodItemsPagerViewModel
     @EnvironmentObject var coordinator: Coordinator
     @State var selectedCategoryId: String? = nil
-    
-    @FetchRequest(
-        entity: FoodCategory.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FoodCategory.id, ascending: true)]
-    ) var foodCategories: FetchedResults<FoodCategory>
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 CategoriesBar(
                     geometry: geometry,
-                    foodCategories: foodCategories,
+                    foodCategories: viewModel.categories,
                     selectedCategoryId: $selectedCategoryId
                 )
                 
                 FoodItemsPagerView(
                     geometry: geometry,
-                    foodCategories: foodCategories,
+                    foodCategories: viewModel.categories,
                     selectedCategoryId: $selectedCategoryId,
-                    context: viewContext,
                     onItemSelected: { item in
                         triggerHapticFeedback(style: .medium)
                         viewModel.manageFoodItems(item)
@@ -58,7 +51,7 @@ struct FoodItemsPager: View {
             }
         }
         .onAppear {
-            if let firstCategoryId = foodCategories.first?.id {
+            if let firstCategoryId = viewModel.categories.first?.id {
                 selectedCategoryId = firstCategoryId
             }
         }
@@ -71,23 +64,12 @@ struct FoodItemsPager: View {
                 guard let response = success else { return }
                 
                 Task { @MainActor in
-                    coordinator.push(.recipe(
-                        recipeViewModel: RecipeViewModel(
-                            recipe: response)
-                    ))
+                    coordinator.push(.recipe(recipe: response))
                 }
             case .failure(let failure):
-                coordinator.push(.recipe(
-                    recipeViewModel: RecipeViewModel(
-                        recipe: RecipeResponse.mockRecipe())
-                ))
+                coordinator.push(.recipe(recipe: .mockRecipe()))
             }
         }
-    }
-    
-    private func triggerHapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .soft) {
-        let generator = UIImpactFeedbackGenerator(style: style)
-        generator.impactOccurred()
     }
 }
 

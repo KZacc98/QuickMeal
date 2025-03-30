@@ -39,16 +39,12 @@ struct RecipeView: View {
                     }
                 }
             }
-            
-            Button("show Saved") {
-                coordinator.presentSheet(.test)
-            }
         }
         .navigationBarItems(trailing: Button(action: {
             if isSaved {
-                viewModel.deleteRecipe(recipe: viewModel.recipe, context: viewContext)
+                viewModel.deleteRecipe()
             } else {
-                viewModel.saveRecipe(recipe: viewModel.recipe, context: viewContext)
+                viewModel.saveRecipe()
             }
             isSaved.toggle()
         }) {
@@ -76,6 +72,9 @@ struct RecipeView: View {
     }
 }
 
-#Preview {
-    RecipeView(viewModel: RecipeViewModel(recipe: RecipeResponse.mockRecipe()))
-}
+//#Preview {
+//    RecipeView(
+//        viewModel: RecipeViewModel(
+//            recipe: RecipeResponse.mockRecipe(),
+//            repository: .mock()))
+//}

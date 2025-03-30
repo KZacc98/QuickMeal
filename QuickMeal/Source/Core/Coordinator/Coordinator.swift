@@ -12,6 +12,12 @@ class Coordinator: ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
     @Published var sheet: Sheet?
     
+    private let factory: ViewModelFactory
+    
+    init(factory: ViewModelFactory) {
+        self.factory = factory
+    }
+    
     func push(_ screen: Screen) {
         path.append(screen)
     }
@@ -36,9 +42,9 @@ class Coordinator: ObservableObject {
     func build(screen: Screen) -> some View {
         switch screen {
         case .home:
-            FoodItemsPager(viewModel: FoodItemsPagerViewModel())
-        case .recipe(recipeViewModel: let viewModel):
-            RecipeView(viewModel: viewModel)
+            FoodItemsPager(viewModel: self.factory.makeFoodItemsPagerViewModel())
+        case .recipe(recipe: let recipe):
+            RecipeView(viewModel: self.factory.makeRecipeViewModel(recipe: recipe))
         }
     }
     
@@ -47,5 +53,10 @@ class Coordinator: ObservableObject {
         switch sheet {
         case .test: Text("test")
         }
+    }
+    
+    //workaround for making viewmodels within the FoodItemsPagerView
+    func makeFoodItemsViewModel(for category: FoodCategory) -> FoodItemsViewModel {
+        factory.makeFoodItemsViewModel(category: category)
     }
 }

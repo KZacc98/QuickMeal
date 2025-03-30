@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct CoordinatorView: View {
-    @StateObject private var coordinator = Coordinator()
+    @StateObject private var coordinator: Coordinator
+    
+    init(coordinator: Coordinator) {
+        self._coordinator = StateObject(wrappedValue: coordinator)
+    }
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {

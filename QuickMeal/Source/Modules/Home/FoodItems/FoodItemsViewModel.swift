@@ -23,34 +23,25 @@ import CoreData
  */
 
 class FoodItemsViewModel: ObservableObject {
-    @Published var category: FoodCategory
-    @Published var foodItems: [FoodItem] = []  // Stores fetched items
     
-    private let context: NSManagedObjectContext
+    // MARK: - Public Properties
+    
+    @Published var category: FoodCategory
+    @Published var foodItems: [FoodItem] = []
     
     var categoryId: String? {
         category.id
     }
     
-    init(category: FoodCategory, context: NSManagedObjectContext) {
-        self.category = category
-        self.context = context
-        fetchFoodItems()
-    }
+    // MARK: - Private Properties
     
-    ///Fetches food items from Core Data filtered by `categoryId`.
-    func fetchFoodItems() {
-        let fetchRequest: NSFetchRequest<FoodItem> = FoodItem.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \FoodItem.name, ascending: true)]
-        
-        if let categoryId = categoryId {
-            fetchRequest.predicate = NSPredicate(format: "categoryId == %@", categoryId)
-        }
-        
-        do {
-            foodItems = try context.fetch(fetchRequest)
-        } catch {
-            print("Error fetching food items: \(error)")
-        }
+    private let repository: CDFoodItemsRepository
+    
+    // MARK: - Initialization
+    
+    init(category: FoodCategory, repository: CDFoodItemsRepository) {
+        self.category = category
+        self.repository = repository
+        self.foodItems = repository.fetchFoodItems(for: category.id)
     }
 }

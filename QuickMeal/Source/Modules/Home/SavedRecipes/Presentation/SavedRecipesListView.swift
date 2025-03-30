@@ -24,9 +24,7 @@ struct SavedRecipesListView: View {
                 } else {
                     ForEach(recipes) { recipe in
                         SavedRecipeCard(recipe: recipe) {
-                            let viewModel = RecipeViewModel(recipe: RecipeResponse(recipe: recipe))
-                            
-                            coordinator.push(.recipe(recipeViewModel: viewModel))
+                            coordinator.push(.recipe(recipe: recipe.toRecipeResponse()))
                         }
                         .padding(.horizontal)
                     }

@@ -8,7 +8,11 @@
 import SwiftUI
 
 class FoodItemsPagerViewModel: ObservableObject {
+    
+    // MARK: - Public Properties
+    
     @Published var hideButton: Bool = true
+    @Published var categories: [FoodCategory] = []
     @Published var foodItems: [FoodItem] = [] {
         didSet {
             withAnimation(.easeInOut(duration: 0.25)) {
@@ -17,7 +21,20 @@ class FoodItemsPagerViewModel: ObservableObject {
         }
     }
     
-    let apiService: APIService = APIService(apiKey: "")
+    // MARK: - Private Properties
+    
+    private let apiService: GeminiAPIService
+    private let repository: CDCategoriesRepository
+    
+    // MARK: - Initialization
+    
+    init(apiService: GeminiAPIService, repository: CDCategoriesRepository) {
+        self.apiService = apiService
+        self.repository = repository
+        self.categories = repository.fetchCategories()
+    }
+    
+    // MARK: - Public Methods
     
     func manageFoodItems(_ foodItem: FoodItem) {
         if foodItems.contains(foodItem) {
@@ -38,6 +55,8 @@ class FoodItemsPagerViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: - Private Methods
     
     private func makePrompt(foodItems: [FoodItem]) -> String {
         let foodItemsList = foodItems.map { $0.name ?? "" }.joined(separator: ",")
