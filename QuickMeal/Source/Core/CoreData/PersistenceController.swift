@@ -10,6 +10,35 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
     
+    static let preview: PersistenceController = {
+        let result = PersistenceController(inMemory: true)
+        let context = result.container.viewContext
+        
+        for i in 0..<50 {
+            let newItem = CDFoodItem(context: context)
+            newItem.id = UUID()
+            newItem.name = "\(i.description) item "
+            newItem.image = "document.fill"
+            newItem.categoryId = Int.random(in: 1...5).description
+        }
+        
+        for i in 1...5 {
+            let newCategory = CDFoodCategory(context: context)
+            newCategory.id = i.description
+            newCategory.name = "category name \(i.description)"
+            newCategory.image = "document.fill"
+        }
+
+        
+        do {
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        return result
+    }()
+    
     let container: NSPersistentContainer
     
     init(inMemory: Bool = false) {
@@ -30,7 +59,11 @@ struct PersistenceController {
             loadJSONData(forceReload: true)
         }
     }
-    
+}
+
+// MARK: - Helper Functions
+
+extension PersistenceController {
     // MARK: - Core Data Operations
     
     /// Saves changes in the view context if there are any.
@@ -51,19 +84,19 @@ struct PersistenceController {
         let context = container.viewContext
 
         // Delete all FoodItem entities
-        let foodItemFetchRequest: NSFetchRequest<NSFetchRequestResult> = FoodItem.fetchRequest()
+        let foodItemFetchRequest: NSFetchRequest<NSFetchRequestResult> = CDFoodItem.fetchRequest()
         let foodItemDeleteRequest = NSBatchDeleteRequest(fetchRequest: foodItemFetchRequest)
 
         // Delete all FoodCategory entities
-        let foodCategoryFetchRequest: NSFetchRequest<NSFetchRequestResult> = FoodCategory.fetchRequest()
+        let foodCategoryFetchRequest: NSFetchRequest<NSFetchRequestResult> = CDFoodCategory.fetchRequest()
         let foodCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: foodCategoryFetchRequest)
         
         // Delete all saved recipe steps
-        let recipeStepsFetchRequest: NSFetchRequest<NSFetchRequestResult> = RecipeStep.fetchRequest()
+        let recipeStepsFetchRequest: NSFetchRequest<NSFetchRequestResult> = CDRecipeStep.fetchRequest()
         let recipeStepsDeleteRequest = NSBatchDeleteRequest(fetchRequest: recipeStepsFetchRequest)
         
         // Delete all saved recipes
-        let recipesFetchRequest: NSFetchRequest<NSFetchRequestResult> = Recipe.fetchRequest()
+        let recipesFetchRequest: NSFetchRequest<NSFetchRequestResult> = CDRecipe.fetchRequest()
         let recipesDeleteRequest = NSBatchDeleteRequest(fetchRequest: recipesFetchRequest)
         
         
@@ -79,6 +112,17 @@ struct PersistenceController {
             print("⚠️ All food items and categories deleted!")
         } catch {
             print("❌ Error deleting Core Data: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Checks if it's the first launch by storing a flag in UserDefaults.
+    private func isFirstLaunch() -> Bool {
+        let key = "hasLoadedJSONData"
+        if UserDefaults.standard.bool(forKey: key) {
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: key)
+            return true
         }
     }
     
@@ -120,19 +164,6 @@ struct PersistenceController {
         }
     }
     
-    // MARK: - Helper Functions
-    
-    /// Checks if it's the first launch by storing a flag in UserDefaults.
-    private func isFirstLaunch() -> Bool {
-        let key = "hasLoadedJSONData"
-        if UserDefaults.standard.bool(forKey: key) {
-            return false
-        } else {
-            UserDefaults.standard.set(true, forKey: key)
-            return true
-        }
-    }
-    
     /// Decodes JSON data from a URL into a specified type.
     private func decodeJSON<T: Decodable>(from url: URL, as type: T.Type) throws -> T {
         let data = try Data(contentsOf: url)
@@ -142,7 +173,7 @@ struct PersistenceController {
     /// Inserts an array of `FoodItemData` into Core Data.
     private func insertFoodItems(_ items: [FoodItemData], into context: NSManagedObjectContext) {
         for item in items {
-            let newItem = FoodItem(context: context)
+            let newItem = CDFoodItem(context: context)
             newItem.id = UUID()
             newItem.name = item.name
             newItem.image = item.image
@@ -153,7 +184,7 @@ struct PersistenceController {
     /// Inserts an array of `FoodCategoryData` into Core Data.
     private func insertFoodCategories(_ categories: [FoodCategoryData], into context: NSManagedObjectContext) {
         for category in categories {
-            let newCategory = FoodCategory(context: context)
+            let newCategory = CDFoodCategory(context: context)
             newCategory.id = category.id
             newCategory.name = category.name
             newCategory.image = category.image

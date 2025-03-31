@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SavedRecipeCard: View {
-    let recipe: Recipe
+    let recipe: CDRecipe
     var action: (() -> Void)?
     
     var body: some View {

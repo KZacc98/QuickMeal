@@ -73,3 +73,11 @@ struct FoodItemsPager: View, Haptic {
     }
 }
 
+#Preview {
+    Group {
+        FoodItemsPager(viewModel: FoodItemsPagerViewModel(apiService: MockAPIService(), repository: MockCDCategoriesRepository()))
+    }
+    .environmentObject(Coordinator(factory: MockDIContainer()))
+    
+}
+

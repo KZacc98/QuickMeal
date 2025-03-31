@@ -1,32 +1,30 @@
 //
-//  DIContainer.swift
+//  MockDIContainer.swift
 //  QuickMeal
 //
-//  Created by Kamil Zachara on 30/03/2025.
+//  Created by Kamil Zachara on 31/03/2025.
 //
 
-final class DIContainer: ViewModelFactory {
+class MockDIContainer: ViewModelFactory {
     private let apiService: GeminiAPIServiceProtocol
     private let persistenceController: PersistenceController
     
     init(
-        apiService: GeminiAPIServiceProtocol,
-        persistenceController: PersistenceController
+        apiService: GeminiAPIServiceProtocol = MockAPIService(),
+        persistenceController: PersistenceController = PersistenceController.preview
     ) {
         self.apiService = apiService
         self.persistenceController = persistenceController
     }
     
     func makeFoodItemsPagerViewModel() -> FoodItemsPagerViewModel {
-        let repository = CDCategoriesRepository(context: persistenceController.container.viewContext)
+        let repository = MockCDCategoriesRepository()
         
         return FoodItemsPagerViewModel(apiService: apiService, repository: repository)
     }
     
     func makeFoodItemsViewModel(category: FoodCategory) -> FoodItemsViewModel {
-        let repository = CDFoodItemsRepository(
-            context: persistenceController.container.viewContext,
-            categoryId: category.id)
+        let repository = MockCDFoodItemsRepository()
         
         return FoodItemsViewModel(category: category, repository: repository)
     }

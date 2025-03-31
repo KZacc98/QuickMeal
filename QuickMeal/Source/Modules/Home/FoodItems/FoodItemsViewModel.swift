@@ -35,13 +35,13 @@ class FoodItemsViewModel: ObservableObject {
     
     // MARK: - Private Properties
     
-    private let repository: CDFoodItemsRepository
+    private let repository: CDFoodItemsRepositoryProtocol
     
     // MARK: - Initialization
     
-    init(category: FoodCategory, repository: CDFoodItemsRepository) {
+    init(category: FoodCategory, repository: CDFoodItemsRepositoryProtocol) {
         self.category = category
         self.repository = repository
-        self.foodItems = repository.fetchFoodItems(for: category.id)
+        self.foodItems = repository.fetchFoodItems(for: category.id, sortDescriptors: [NSSortDescriptor(keyPath: \CDFoodItem.name, ascending: true)])
     }
 }

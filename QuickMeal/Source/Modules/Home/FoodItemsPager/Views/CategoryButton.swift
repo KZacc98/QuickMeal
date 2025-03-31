@@ -52,3 +52,8 @@ struct CategoryButton: View {
         }
     }
 }
+
+#Preview {
+    CategoryButton(categoryImage: "star.fill", isSelected: true, onSelect: {})
+    CategoryButton(categoryImage: "star.fill", isSelected: false, onSelect: {})
+}

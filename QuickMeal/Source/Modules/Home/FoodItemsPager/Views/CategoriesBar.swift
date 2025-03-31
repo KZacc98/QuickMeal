@@ -28,15 +28,6 @@ struct CategoriesBar: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 16) {
-                
-                CategoryButton(
-                    categoryImage: "star.fill",
-                    isSelected: selectedCategoryId == "0",
-                    onSelect: {
-                        selectedCategoryId = "0"
-                    }
-                )
-                
                 ForEach(foodCategories) { category in
                     CategoryButton(
                         categoryImage: category.image,
@@ -51,5 +42,15 @@ struct CategoriesBar: View {
             .padding(.horizontal)
         }
         .scrollIndicators(.never)
+    }
+}
+
+#Preview {
+    @Previewable @State var selectedCategoryId: String? = "1"
+    GeometryReader { geometry in
+        CategoriesBar(
+            geometry: geometry,
+            foodCategories: FoodCategory.mockCollection(),
+            selectedCategoryId: $selectedCategoryId)
     }
 }

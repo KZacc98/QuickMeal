@@ -12,9 +12,9 @@ struct SavedRecipesListView: View {
     @EnvironmentObject var coordinator: Coordinator
     
     @FetchRequest(
-        entity: Recipe.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Recipe.createdAt, ascending: true)]
-    ) var recipes: FetchedResults<Recipe>
+        entity: CDRecipe.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CDRecipe.createdAt, ascending: true)]
+    ) var recipes: FetchedResults<CDRecipe>
     
     var body: some View {
         ScrollView {

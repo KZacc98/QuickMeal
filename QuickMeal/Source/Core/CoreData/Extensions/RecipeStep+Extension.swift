@@ -5,7 +5,7 @@
 //  Created by Kamil Zachara on 04/03/2025.
 //
 
-extension RecipeStep {
+extension CDRecipeStep {
     func toStepResponse() -> StepResponse {
         StepResponse(
             stepNumber: Int(self.stepNumber),

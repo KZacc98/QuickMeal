@@ -23,15 +23,17 @@ class FoodItemsPagerViewModel: ObservableObject {
     
     // MARK: - Private Properties
     
-    private let apiService: GeminiAPIService
-    private let repository: CDCategoriesRepository
+    private let apiService: GeminiAPIServiceProtocol
+    private let repository: CDCategoriesRepositoryProtocol
     
     // MARK: - Initialization
     
-    init(apiService: GeminiAPIService, repository: CDCategoriesRepository) {
+    init(apiService: GeminiAPIServiceProtocol, repository: CDCategoriesRepositoryProtocol) {
         self.apiService = apiService
         self.repository = repository
-        self.categories = repository.fetchCategories()
+        self.categories = repository.fetchCategories(
+            sortDescriptors: [NSSortDescriptor(keyPath: \CDFoodCategory.id, ascending: true)]
+        )
     }
     
     // MARK: - Public Methods
@@ -58,13 +60,11 @@ class FoodItemsPagerViewModel: ObservableObject {
     
     // MARK: - Private Methods
     
-    private func makePrompt(foodItems: [FoodItem]) -> String {
-        let foodItemsList = foodItems.map { $0.name ?? "" }.joined(separator: ",")
+    internal func makePrompt(foodItems: [FoodItem]) -> String {
+        let foodItemsList = foodItems.map { $0.name }.joined(separator: ",")
         
         return """
 \(foodItemsList)
 """
     }
 }
-
-

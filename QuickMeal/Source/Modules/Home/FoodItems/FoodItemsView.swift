@@ -31,7 +31,9 @@ struct FoodItemsView: View {
 
     var body: some View {
         ScrollView {
-            Text(viewModel.category.name ?? "Category Name")
+            Spacer()
+                .frame(height: 50)
+            Text(viewModel.category.name)
                 .font(.title)
                 .padding(.top)
             
@@ -50,4 +52,8 @@ struct FoodItemsView: View {
             .padding()
         }
     }
+}
+
+#Preview {
+    FoodItemsView(viewModel: FoodItemsViewModel(category: FoodCategory(id: "1", name: "Test", image: "star")!, repository: MockCDFoodItemsRepository()))
 }

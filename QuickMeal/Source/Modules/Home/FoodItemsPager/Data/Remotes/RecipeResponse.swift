@@ -23,7 +23,7 @@ struct RecipeResponse: Codable {
         self.steps = steps
     }
     
-    init(recipe: Recipe) {
+    init(recipe: CDRecipe) {
         self = recipe.toRecipeResponse()
     }
 }

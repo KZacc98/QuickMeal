@@ -1,22 +1,18 @@
 //
-//  CDFoodItemsRepository.swift
+//  MockCDFoodItemsRepository.swift
 //  QuickMeal
 //
-//  Created by Kamil Zachara on 30/03/2025.
+//  Created by Kamil Zachara on 31/03/2025.
 //
 
 import CoreData
 
-final class CDFoodItemsRepository: CDFoodItemsRepositoryProtocol {
-    private let context: NSManagedObjectContext
-    
-    init(context: NSManagedObjectContext, categoryId: String?) {
-        self.context = context
-    }
+class MockCDFoodItemsRepository: CDFoodItemsRepositoryProtocol {
+    private let context = PersistenceController.preview
     
     func fetchFoodItems(
         for categoryId: String?,
-        sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(keyPath: \CDFoodItem.name, ascending: true)]
+        sortDescriptors: [NSSortDescriptor]
     ) -> [FoodItem] {
         let request: NSFetchRequest<CDFoodItem> = CDFoodItem.fetchRequest()
         request.sortDescriptors = sortDescriptors
@@ -25,7 +21,7 @@ final class CDFoodItemsRepository: CDFoodItemsRepositoryProtocol {
             request.predicate = NSPredicate(format: "categoryId == %@", categoryId)
         }
         
-        let coreDataItems = (try? context.fetch(request)) ?? []
+        let coreDataItems = (try? context.container.viewContext.fetch(request)) ?? []
         
         return coreDataItems.compactMap {
             FoodItem(id: $0.id, name: $0.name, categoryId: $0.categoryId, image: $0.image)

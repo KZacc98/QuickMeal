@@ -56,7 +56,7 @@ struct RecipeView: View {
     }
     
     private func checkIfSaved() {
-        let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        let fetchRequest: NSFetchRequest<CDRecipe> = CDRecipe.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "name == %@ AND shortInfo == %@ AND %d == steps.@count",
             viewModel.recipe.name,
